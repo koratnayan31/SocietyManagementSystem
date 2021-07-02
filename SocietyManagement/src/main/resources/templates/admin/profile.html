@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div class="container emp-profile">
+			<div class="row">
+				<div class="col-md-12 text-center">
+
+					<div class="myimage">
+						<img
+							src="https://ui-avatars.com/api/?name=Nayan+Korat&background=random"
+							alt="" />
+					</div>
+					<div class="profile-head mt-2">
+						<div th:with="role=${#strings.replace(session.user.role,'ROLE_','')}">
+							<h5>
+								<span th:text="${session.user.name}"></span>
+							</h5>
+							
+							<h6>
+								<span
+									th:utext="${#strings.replace(#strings.replace(role,' ','&lt;br/&gt;'),'_',' ')}"></span>
+							</h6>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row mt-4">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="about-tab"
+						data-bs-toggle="tab" href="#about" role="tab"
+						aria-controls="about" aria-selected="true">About</a></li>
+					<li class="nav-item"><a class="nav-link" id="timeline-tab"
+						data-bs-toggle="tab" href="#timeline" role="tab"
+						aria-controls="timeline" aria-selected="false">Timeline</a></li>
+				</ul>
+			</div>
+			<div class="row mt-3">
+				<div class="tab-content timeline-tab" id="myTabContent">
+					<div class="tab-pane fade show active" id="about" role="tabpanel"
+						aria-labelledby="about-tab">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Member Id</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.memberId}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Name</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.name}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Email</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.email}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Mobile Number</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.mobileNumber}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>User type</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.actualRole}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="timeline" role="tabpanel"
+						aria-labelledby="timeline-tab">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Request to Join Time</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.createdOn}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Request Approve Time</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${admin.createdOn}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
+

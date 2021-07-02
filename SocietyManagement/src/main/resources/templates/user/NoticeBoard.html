@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<h1 class="text-center mb-5">Notice Board</h1>
+		<div class="text-center" th:if="${#lists.isEmpty(notices)}">There is no notice to show you</div>
+		<div class="row row-col-1 row-col-md-2 g-4 h-100">
+			<div class="col me-2 ms-2" th:each="notice:${notices}">
+				<div class="card h-100 bg-light text-dark"
+					th:classappend="${notice.isEmergency}?'border-danger border-3':'border-secondary'">
+					<div class="card-header">
+						<h5 class="text-start" th:text="${notice.title}"></h5>
+						<p class="text-end" th:text="${notice.noticeOn}"></p>
+					</div>
+					<div class="card-body">
+
+						<p class="card-text" th:text="${notice.description}"></p>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}"
+			class="alert alert-dismissible" role="alert">
+			<p th:text="${session.message.content}"></p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="cols-md-8">
+					<div class="my-card mt-2">
+						<h2 class="text-center">Add Contact</h2>
+						<form th:action="@{'add-contact'}" method="post"
+							th:object=${contact}>
+							<div class="form-group mt-5">
+
+								<div class="row">
+									<div class="col-md-6">
+										<label for="firstName" class="form-label">First Name</label> <input
+											type="text" class="form-control" id="firstName"
+											name="firstName" th:value="${contact.firstName}"
+											th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}">
+										<small><span id="firstNameMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('firstName')}" th:text="${e}"></div>
+									</div>
+									<!-- 									<div class="col-md-4"> -->
+									<!-- 										<label for="middleName" class="form-label">Middle Name</label> -->
+									<!-- 										<input type="text" class="form-control" id="middleName" -->
+									<!-- 											name="middleName" th:value="${contact.middleName}" -->
+									<!-- 											th:classappend="${#fields.hasErrors('middleName')?'is-invalid':''}"> -->
+									<!-- 										<small><span id="middleNameMsg" style="color: red;"></span></small> -->
+									<!-- 										<div class="invalid-feedback" -->
+									<!-- 											th:each="e:${#fields.errors('middleName')}" th:text="${e}"></div> -->
+									<!-- 									</div> -->
+									<div class="col-md-6">
+										<label for="lastName" class="form-label">Last Name</label> <input
+											type="text" class="form-control" id="lastName"
+											name="lastName" th:value="${contact.lastName}"
+											th:classappend="${#fields.hasErrors('lastName')?'is-invalid':''}">
+										<small><span id="lastNameMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('lastName')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<label for="mobileNumber" class="form-label">Mobile
+											Number</label> <input type="number" class="form-control"
+											id="mobileNumber" name="mobileNumber"
+											th:classappend="${#fields.hasErrors('mobileNumber')?'is-invalid':''}"
+											th:value="${contact.mobileNumber}"> <small><span
+											id="mobileNumberMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('mobileNumber')}" th:text="${e}"></div>
+									</div>
+									<div class="col-md-6">
+
+										<label for="email" class="form-label">Email Address</label> <input
+											type="email" class="form-control" id="email" name="email"
+											th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+											th:value="${contact.email}"> <small><span
+											id="emailMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('email')}" th:text="${e}"></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label for="post" class="form-label">Post</label> <input
+											type="text" class="form-control" id="post" name="post"
+											th:value="${contact.post}"
+											th:classappend="${#fields.hasErrors('post')?'is-invalid':''}">
+										<small><span id="postMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('post')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+
+								<div class="container text-center" style="margin-top: 25px">
+
+									<button type="submit" class="btn btn-success text-white mx-1"
+										value="Here">Add to Diary</button>
+									<button type="reset" class="btn btn-info text-white mx-1">Reset</button>
+
+								</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="cols-md-4"></div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

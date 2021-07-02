@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}"
+			class="alert alert-dismissible" role="alert" autocapitalize="">
+			<p th:text="${session.message.content}"></p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<div class="table-responsive">
+			<table
+				class="table caption-top table-hover table-success table-striped table-bordered border-secondary align-middle">
+				<caption class="text-center mytable table-dark mb-2 mt-2 h3">
+					Pending Request</caption>
+				<thead class="table-warning" th:unless="${isEmpty}">
+					<tr>
+						<th scope="col">Form ID</th>
+						<th scope="col">Name</th>
+						<th scope="col">Mobile Number</th>
+						<th scope="col">Email</th>
+						<th scope="col">Adharcard Number</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="request:${requests}">
+						<th scope="row" th:text="${request.formId}"></th>
+						<td th:text="${request.name}"></td>
+						<td th:text="${request.mobileNumber}"></td>
+						<td th:text="${request.email}"></td>
+						<td th:text="${request.adharcardNo}"></td>
+						<td><a type="button" class="btn btn-outline-primary"
+							th:href="@{'/admin/pending-requests/view/'+${request.formId}}">View</a>
+							<button type="button"
+								th:onclick="|initApprove('${request.formId}')|"
+								class="btn btn-outline-success">Approve</button>
+							<button type="button"
+								th:onclick="|initReject('${request.formId}')|"
+								class="btn btn-outline-danger">Reject</button></td>
+					</tr>
+				</tbody>
+
+			</table>
+			<div th:if="${isEmpty}" class="text-center">
+				<span class="h4">No Request to Review</span>
+			</div>
+
+
+			<!-- 			page navigation -->
+			<nav aria-label="Page navigation example" th:unless="${isEmpty}">
+				<ul class="pagination justify-content-end me-3">
+					<li class="page-item"
+						th:classappend="${currentPage}<1?'disabled':''"><a
+						class="page-link"
+						th:href="@{'/admin/pending-requests/'+${currentPage-1}}"
+						tabindex="-1" aria-disabled="true">Previous</a></li>
+
+
+					<li class="page-item"
+						th:each="i:${#numbers.sequence(0,totalPage-1,1)}"
+						th:classappend="${currentPage==i?'active':''}"><a
+						class="page-link" th:href="@{'/admin/pending-requests/'+${i}}"><span
+							th:text="${i+1}"></span></a></li>
+
+
+					<li class="page-item"
+						th:classappend="${currentPage+1}>=${totalPage}?'disabled':''"><a
+						class="page-link"
+						th:href="@{'/admin/pending-requests/'+${currentPage+1}}"
+						tabindex="-1" aria-disabled="true">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+	</section>
+</body>
+</html>

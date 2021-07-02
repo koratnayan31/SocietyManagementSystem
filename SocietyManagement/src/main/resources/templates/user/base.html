@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+	th:fragment="layout(content)">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.standalone.css}" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+
+<title th:text=${title}>Base Template</title>
+</head>
+<body>
+	<!-- 	NAVBAR -->
+
+	<nav
+		class="navbar navbar-expand-lg navbar-dark bg-primary-custom fixed-top">
+
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Society Management System</a>
+
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link"
+						th:classappend="${#request.getServletPath() == '/home'||#request.getServletPath() == '/' ? 'active' : ''}"
+						href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:classappend="${#request.getServletPath() == '/about-us' ? 'active' : ''}"
+						href="#">About us</a></li>
+					<li class="nav-item"><a class="nav-link active" href=""><span
+							th:text="${session.user.name}"></span></a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<!-- END OF NAVBAR -->
+	<!-- 	start of sidebar -->
+
+	<div class="sidebar">
+		<span class="closeBtn" onclick="toggleSidebar()">&times;</span> <a
+			href="/user/profile"
+			th:classappend="${#request.getServletPath() == '/user/profile' ? 'myactive' : ''}"
+			class="item"><span>Profile</span></a> <a href="/user/view-expense"
+			th:classappend="${#strings.contains(#request.getServletPath(),'expense') ? 'myactive' : ''}"
+			class="item"><span>Expenses</span></a> <a href="/user/notice-board"
+			th:classappend="${#strings.contains(#request.getServletPath(),'notice-board') ? 'myactive' : ''}"
+			class="item"><span>Notice Board</span></a> <a
+			href="/user/maintenance" class="item"><span>Maintenance
+				Bill</span></a> <a href="/logout" class="item">Logout</a>
+		<div class="divider"></div>
+
+	</div>
+	<!-- 	end of sidebar -->
+
+
+
+	<!-- 	content will be here -->
+	<div class="content mt-5">
+
+		<i class="fas fa-bars m-3 bar-btn" onclick="toggleSidebar()"></i>
+		<div th:replace="${content}"></div>
+	</div>
+
+
+	<script th:src="@{/js/jQuery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/sweetalert2.1.2.js}"></script>
+	
+</body>
+</html>

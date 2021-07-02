@@ -1,0 +1,288 @@
+body {
+	background: #e6e6e6;
+}
+
+.bg-primary-custom {
+	background: #00A170;
+}
+
+.banner {
+	height: 93vh;
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+		url(../other/banner2.jpg);
+	background-size: cover;
+	color: white;
+}
+
+.my-card {
+	padding: 20px;
+	background: #FFFFFF;
+}
+
+.mytable {
+	
+	background-color: #3fb0ac;
+	background-color: #926AA6;
+}
+
+.myalert {
+	background-color: green;
+}
+
+.myalert:not([disabled]):hover {
+	background-color: green;
+}
+
+#logreg-forms {
+	width: 412px;
+	margin: 10vh auto;
+	background-color: #fffffd;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+#logreg-forms form {
+	width: 100%;
+	max-width: 410px;
+	padding: 15px;
+	margin: auto;
+}
+
+#logreg-forms .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+#logreg-forms .form-control:focus {
+	z-index: 2;
+}
+
+#logreg-forms .form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+#logreg-forms .form-signin input[type="password"] {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+#logreg-forms a {
+	display: block;
+	padding-top: 10px;
+	color: lightseagreen;
+}
+
+#logreg-form .lines {
+	width: 200px;
+	border: 1px solid red;
+}
+
+#logreg-forms button[type="submit"] {
+	margin-top: 10px;
+}
+
+#logreg-forms .form-reset {
+	display: none;
+}
+
+/* Mobile */
+@media screen and (max-width:500px) {
+	#logreg-forms {
+		width: 300px;
+	}
+}
+
+@media only screen and (max-width:600px) {
+	.sidebar {
+		display: none;
+		width: 100% !important;
+		background-color: white;
+		height: 100vh;
+		position: fixed;
+		padding-top: 20px;
+	}
+	.content {
+		margin-left: 0% !important;
+	}
+}
+
+.sidebar {
+	width: 18%;
+	background-color: white;
+	height: 100%;
+	position: fixed;
+	padding-top: 45px;
+}
+
+.sidebar a {
+	display: block;
+	width: 100%;
+	padding: 10px 25px;
+	text-decoration: none;
+	color: gray;
+}
+
+.sidebar a:hover {
+	background-color: #e2e2e2;
+}
+
+.sidebar .divider {
+	height: .5px;
+	width: 100%;
+	background-color: #e2e2e2;
+	margin-top: 10px;
+}
+
+.content .bar-btn {
+	cursor: pointer;
+}
+
+.sidebar .closeBtn {
+	position: absolute;
+	top: 0;
+	right: 35px;
+	font-size: 36px;
+	cursor: pointer;
+}
+
+.content {
+	margin-left: 20%;
+}
+
+/*profile page admin style*/
+.emp-profile {
+	padding: 3%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	border-radius: 0.5rem;
+	background: #fff;
+}
+
+.myimage {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.myimage img {
+	width: auto;
+	height: 100%;
+}
+
+.square img {
+	margin-left: -50px;
+}
+
+.profile-img .file {
+	position: relative;
+	overflow: hidden;
+	margin-top: -20%;
+	width: 70%;
+	border: none;
+	border-radius: 0;
+	font-size: 15px;
+	background: #212529b8;
+}
+
+.profile-img .file input {
+	position: absolute;
+	opacity: 0;
+	right: 0;
+	top: 0;
+}
+
+.profile-head h5 {
+	color: #333;
+}
+
+.profile-head h6 {
+	color: #0062cc;
+}
+
+.profile-edit-btn {
+	border: none;
+	border-radius: 1.5rem;
+	width: 70%;
+	padding: 2%;
+	font-weight: 600;
+	color: #6c757d;
+	cursor: pointer;
+}
+
+.proile-rating {
+	font-size: 12px;
+	color: #818182;
+	margin-top: 5%;
+}
+
+.proile-rating span {
+	color: #495057;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.profile-head .nav-tabs {
+	margin-bottom: 5%;
+}
+
+.profile-head .nav-tabs .nav-link {
+	font-weight: 600;
+	border: none;
+}
+
+.profile-head .nav-tabs .nav-link.active {
+	border: none;
+	border-bottom: 2px solid #0062cc;
+}
+
+.profile-work {
+	padding: 14%;
+	margin-top: -15%;
+}
+
+.profile-work p {
+	font-size: 12px;
+	color: #818182;
+	font-weight: 600;
+	margin-top: 10%;
+}
+
+.profile-work a {
+	text-decoration: none;
+	color: #495057;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.profile-work ul {
+	list-style: none;
+}
+
+.profile-tab label {
+	font-weight: 600;
+}
+
+.profile-tab p {
+	font-weight: 600;
+	color: #0062cc;
+}
+
+.tab-content span {
+	color: #0062cc;
+}
+
+.myactive {
+	background-color: #9fa8a3;
+}
+
+.myactive span {
+	color: #ffffff;
+}

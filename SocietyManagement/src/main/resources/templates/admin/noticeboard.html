@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}"
+			class="alert alert-dismissible" role="alert">
+			<p th:text="${session.message.content}"></p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+		<div class="container">
+			<div class="col-md-8 offset-md-2">
+				<div class="my-card mt-2">
+					<h2 class="text-center">Add Notice</h2>
+					<form th:action="@{add-notice}" method="post" th:object="${notice}">
+						<div class="form-group mt-5">
+							<div class="row mt-2">
+
+								<div class="input-group">
+
+									<div class="col-2">
+										<span class="input-group-text">Title</span>
+									</div>
+									<input type="text" id="title" class="form-control" name="title"
+										th:value="${notice.title}" placeholder="Enter Title Here"
+										th:classappend="${#fields.hasErrors('title')?'is-invalid':''}">
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('title')}" th:text="${e}"></div>
+								</div>
+							</div>
+
+							<div class="row mt-4">
+								<div class="input-group">
+									
+										<span class="input-group-text">Description</span>
+									
+									<div class="col-10">
+										<textarea id="description" class="form-control" rows="3"
+											name="description" placeholder="Enter Description Here"
+											th:value="${notice.description}"
+											th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"></textarea>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('description')}" th:text="${e}"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="mt-4">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox"
+										th:field="${notice.isEmergency}" id="forEmergency"
+										name="isEmergency"> <label class="form-check-label"
+										for="forEmergency"> Check if Notice to be Send Via
+										Email Also</label>
+								</div>
+							</div>
+
+
+							<div class="container text-center" style="margin-top: 25px">
+
+								<button type="submit" class="btn btn-success text-white mx-1"
+									value="Here">Add to Notice Board</button>
+								<button type="reset" class="btn btn-info text-white mx-1">Reset</button>
+
+							</div>
+
+
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>

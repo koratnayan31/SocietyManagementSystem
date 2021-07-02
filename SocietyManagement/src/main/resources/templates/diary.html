@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+<body>
+	<section>
+		<div class="m-2">
+			<div class="table-responsive">
+				<table
+					class="table caption-top table-hover table-success table-striped table-bordered border-secondary align-middle">
+					<caption class="text-center text-lig"
+						style="background-color: #c5d5cb;">
+						<h2>Society Diary</h2>
+					</caption>
+					<thead class="table-warning">
+						<tr>
+							<th scope="col">SR No.</th>
+							<th scope="col">First Name</th>
+							<th scope="col">Last Name</th>
+							<th scope="col">Mobile Number</th>
+							<th scope="col">Email</th>
+							<th scope="col">Post</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact,iState:${contacts}">
+							<th scope="row" th:text="${iState.count}"></th>
+							<td th:text="${contact.firstName}"></td>
+							<td th:text="${contact.lastName}"></td>
+							<td th:text="${contact.mobileNumber}"></td>
+							<td th:text="${contact.email}"></td>
+							<td th:text="${contact.post}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

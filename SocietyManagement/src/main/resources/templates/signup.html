@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="my-card mt-2">
+
+						<div class="container text-center mb-2">
+							<img style="width: 80px;" th:src="@{other/register_logo.png}"
+								alt="" />
+						</div>
+						<h2 class="text-center">Register Here</h2>
+
+						<form id="registerForm" th:action="@{/do_register}" method="post"
+							enctype="multipart/form-data" th:object="${form}" onsubmit="check(event)">
+							<!--  onsubmit="check(event)"-->
+							<div class="form-group mt-5">
+
+								<div class="form-group">
+									<label for="firstName" class="form-label">First Name</label> <input
+										type="text" class="form-control" id="firstName"
+										name="firstName" th:value="${form.firstName}"
+										th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}">
+									<small><span id="firstNameMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('firstName')}" th:text="${e}"></div>
+
+								</div>
+
+								<div class="form-group">
+									<label for="middleName" class="form-label">Middle Name</label>
+									<input type="text" class="form-control" id="middleName"
+										name="middleName" th:value="${form.middleName}"
+										th:classappend="${#fields.hasErrors('middleName')?'is-invalid':''}">
+									<small><span id="middleNameMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('middleName')}" th:text="${e}"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="lastName" class="form-label">Last Name</label> <input
+										type="text" class="form-control" id="lastName" name="lastName"
+										th:value="${form.lastName}"
+										th:classappend="${#fields.hasErrors('lastName')?'is-invalid':''}">
+									<small><span id="lastNameMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('lastName')}" th:text="${e}"></div>
+								</div>
+								<div class="form-group">
+									<label for="gender" class="form-label">Gender</label>
+								</div>
+
+								<div class="form-check">
+									<input class="form-check-input" type="radio" value="Male"
+										name="gender" id="male" checked> <label
+										class="form-check-label" for="male"> Male</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" value="Female"
+										name="gender" id="female"> <label
+										class="form-check-label" for="female">Female</label>
+								</div>
+
+								<div class="form-group">
+									<label for="mobileNumber" class="form-label">Mobile
+										Number</label> <input type="number" class="form-control"
+										id="mobileNumber" name="mobileNumber"
+										th:classappend="${#fields.hasErrors('mobileNumber')?'is-invalid':''}"
+										th:value="${form.mobileNumber}"> <small><span
+										id="mobileNumberMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('mobileNumber')}" th:text="${e}"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="email" class="form-label">Email Address</label> <input
+										type="email" class="form-control" id="email" name="email"
+										th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+										th:value="${form.email}"> <small><span
+										id="emailMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('email')}" th:text="${e}"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="societyHouseNo" class="form-label">House
+										Number in Society </label> <input type="text" class="form-control"
+										id="societyHouseNo" name="societyHouseNo"
+										th:classappend="${#fields.hasErrors('societyHouseNo')?'is-invalid':''}"
+										th:value="${form.societyHouseNo}"><small><span
+										id="societyHouseNoMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('societyHouseNo')}" th:text="${e}"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="adharcardNo" class="form-label">Adhar Card
+										Number</label> <input type="number" class="form-control"
+										id="adharcardNo" name="adharcardNo"
+										th:classappend="${#fields.hasErrors('adharcardNo')?'is-invalid':''}"
+										th:value="${form.adharcardNo}"> <small><span
+										id="adharcardNoMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('adharcardNo')}" th:text="${e}"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="isOwner" class="form-label">Are You Owner
+										of House?</label>
+								</div>
+
+								<div class="form-check">
+									<input class="form-check-input" type="radio" value="true"
+										name="isOwner" id="isOwnerYes" onchange="adjustTextbox()">
+									<label class="form-check-label" for="isOwnerYes"> Yes</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" value="false"
+										name="isOwner" id="isOwnerNo" checked
+										onchange="adjustTextbox()"> <label
+										class="form-check-label" for="isOwner_No"> No</label>
+								</div>
+								<div class="form-group" id="ownerEmailGroup">
+									<label for="ownerEmail" class="form-label">Owner's
+										Email Id</label> <input type="email" class="form-control"
+										th:value="${form.ownerEmail}"
+										th:classappend="${#fields.hasErrors('ownerEmail')?'is-invalid':''}"
+										id="ownerEmail" name="ownerEmail" /> <small><span
+										id="ownerEmailMsg" style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('ownerEmail')}" th:text="${e}"></div>
+								</div>
+								<br>
+								<div class="input-group form-group">
+									<div class="custom-file">
+										<label class="custom-file-label" for="profileImage">Profile
+											Image</label> <br> <input type="file" accept="image/*"
+											th:classappend="${#fields.hasErrors('profileImageUrl')?'is-invalid':''}"
+											class="custom-file-input" id="profileImage"
+											name="profileImage">
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('profileImageUrl')}"
+											th:text="${e}"></div>
+
+									</div>
+								</div>
+								<br>
+								<div class="input-group form-group">
+									<div class="custom-file">
+										<label class="custom-file-label" for="adharcard">Adhar
+											Card</label> <br> <input type="file" class="custom-file-input"
+											th:classappend="${#fields.hasErrors('adharUrl')?'is-invalid':''}"
+											id="adharcard" name="adharcardProof"><small><span
+											id="adharcardProofMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('adharUrl')}" th:text="${e}"></div>
+
+
+									</div>
+								</div>
+								<br>
+								<div class="input-group form-group">
+									<div class="custom-file">
+										<label class="custom-file-label" for="ownerProof">Proof
+											of Owner or Tenant</label> <br> <input type="file"
+											name="ownerProof" class="custom-file-input" id="ownerProof"
+											th:classappend="${#fields.hasErrors('ownerTenantProofUrl')?'is-invalid':''}"
+											accept=".pdf"><small><span id="ownerProofMsg"
+											style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('ownerTenantProofUrl')}"
+											th:text="${e}"></div>
+
+
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="password" class="form-label">Password</label> <input
+										type="password" class="form-control" id="password"
+										th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
+										name="password"> <small><span id="passwordMsg"
+										style="color: red;"></span></small>
+									<div class="invalid-feedback"
+										th:each="e:${#fields.errors('password')}" th:text="${e}"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="confirmPassword" class="form-label">Confirm
+										Password</label> <input type="password" class="form-control"
+										id="confirmPassword">
+								</div>
+
+								<div class="container text-center" style="margin-top: 25px">
+
+									<button type="submit" class="btn btn-success text-white mx-1">Register</button>
+									<button type="reset" class="btn btn-info text-white mx-1">Reset</button>
+
+								</div>
+
+							</div>
+
+						</form>
+						
+						
+						<hr>
+					<ul class="list-inline text-center">
+						<li class="list-inline-item">Already have an account?</li>
+						<li class="list-inline-item"><a href="/login" class="text-primary">Log in here</a></li>
+					</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>

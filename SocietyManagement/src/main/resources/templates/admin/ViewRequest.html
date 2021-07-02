@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}"
+			class="alert alert-dismissible" role="alert">
+			<p th:text="${session.message.content}"></p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+		<div class="container">
+			<table
+				class="table caption-top table-hover table-success table-striped table-bordered border-secondary align-middle">
+				<caption class="text-center mytable table-dark mb-2 mt-2">
+					<big><big>Detail of User</big></big>
+				</caption>
+				<tbody>
+					<tr>
+						<th scope="row">Form Id</th>
+						<td th:text="${form.formId}"></td>
+					</tr>
+					<tr>
+						<th scope="row">First Name</th>
+						<td th:text="${form.firstName}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Middle Name</th>
+						<td th:text="${form.middleName}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Last Name</th>
+						<td th:text="${form.lastName}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Gender</th>
+						<td th:text="${form.gender}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Mobile Number</th>
+						<td th:text="${form.mobileNumber}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Email</th>
+						<td th:text="${form.email}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Adhar Card Number</th>
+						<td th:text="${form.adharcardNo}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Society House Number</th>
+						<td th:text="${form.societyHouseNo}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Is User is Owner of House?</th>
+						<td th:text="${form.isOwner==true}?'Yes':'No'"></td>
+					</tr>
+					<tr th:if="${form.isOwner==false}">
+						<th scope="row">Owner Name</th>
+						<td th:text="${form.ownerEmail}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Record Date</th>
+						<td th:text="${form.recordDate}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Comment</th>
+						<td th:text="${form.comment}"></td>
+					</tr>
+					<tr>
+						<th scope="row">Adhar card Proof</th>
+						<td><a class="btn btn-outline-primary"
+							th:href="@{${form.adharUrl}}" th:target="_blank">View</a></td>
+					</tr>
+					<tr>
+						<th scope="row">Proof of Ownership or Tenant</th>
+						<td><a class="btn btn-outline-primary" th:target="_blank"
+							th:href="@{${form.ownerTenantProofUrl}}">View</a></td>
+					</tr>
+
+				</tbody>
+
+			</table>
+			<div class="text-center">
+				<button type="button" th:onclick="|initApprove('${form.formId}')|"
+					class="btn btn-outline-success">Approve</button>
+				<button type="button" th:onclick="|initReject('${form.formId}')|"
+					class="btn btn-outline-danger">Reject</button>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

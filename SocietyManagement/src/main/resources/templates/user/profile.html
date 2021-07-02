@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div class="container emp-profile">
+			<div class="row">
+				<div class="col-md-12 text-center">
+
+					<div class="myimage" th:classappend="${isOriginal}?'square':''">
+								<img th:src="@{${member.profile}}" alt="" />
+					</div>
+					<div class="profile-head mt-2">
+
+						<h5>
+							<span th:text="${member.name}"></span>
+						</h5>
+
+						<h6>
+							<span>Society Member</span>
+						</h6>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row mt-4">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active" id="about-tab"
+						data-bs-toggle="tab" href="#about" role="tab"
+						aria-controls="about" aria-selected="true">About</a></li>
+					<li class="nav-item"><a class="nav-link" id="timeline-tab"
+						data-bs-toggle="tab" href="#timeline" role="tab"
+						aria-controls="timeline" aria-selected="false">Timeline</a></li>
+				</ul>
+			</div>
+			<div class="row mt-3">
+				<div class="tab-content timeline-tab" id="myTabContent">
+					<div class="tab-pane fade show active" id="about" role="tabpanel"
+						aria-labelledby="about-tab">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Member Id</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.memberId}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Name</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.name}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Gender</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.gender}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Society Name</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.societyName}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>House Number</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.societyHouseNo}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Owner Name</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.house.ownerName}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Email</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.email}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Mobile Number</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.mobileNumber}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Adharcard Number</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.adharcardNumber}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>User type</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span>Society Member</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="timeline" role="tabpanel"
+						aria-labelledby="timeline-tab">
+						<div class="row">
+							<div class="col-md-6">
+								<label>Request to Join Time</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${recordDate}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label>Request Approve Time</label>
+							</div>
+							<div class="col-md-6">
+								<p>
+									<span th:text="${member.approvedOn}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
+

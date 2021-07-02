@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div class="table-responsive">
+			<table
+				class="table caption-top table-hover table-success table-striped table-bordered border-secondary align-middle">
+				<caption class="text-center mytable table-dark mb-2 mt-2 h3">
+				Expense List
+				</caption>
+				<thead class="table-warning" th:unless="${#lists.isEmpty(expenses)}">
+					<tr>
+						<th scope="col">SR No</th>
+						<th scope="col">Expense Name</th>
+						<th scope="col">Expense Type</th>
+						<th scope="col">Amount</th>
+						<th scope="col">Description</th>
+						<th scope="col">Time</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="expense,iState:${expenses}">
+						<th scope="row" th:text="${iState.index+1}"></th>
+
+						<td th:text="${expense.expenseName}"></td>
+						<td th:text="${expense.expenseType}"></td>
+						<td th:text="${expense.amount}"></td>
+						<td th:text="${expense.description}"></td>
+						<td th:text="${expense.timeStamp}"></td>
+					</tr>
+					</th:block>
+				</tbody>
+
+			</table>
+			<div class="text-center" th:if="${#lists.isEmpty(expenses)}">No data available for this month</div>
+		</div>
+
+	</section>
+</body>
+</html>

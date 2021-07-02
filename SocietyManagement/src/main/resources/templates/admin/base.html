@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+	th:fragment="layout(content)">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+
+<title th:text=${title}>Base Template</title>
+</head>
+<body>
+	<!-- 	NAVBAR -->
+
+	<nav
+		class="navbar navbar-expand-lg navbar-dark bg-primary-custom fixed-top">
+
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Society Management System</a>
+
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link"
+						th:classappend="${#request.getServletPath() == '/home'||#request.getServletPath() == '/' ? 'active' : ''}"
+						href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:classappend="${#request.getServletPath() == '/about-us' ? 'active' : ''}"
+						href="#">About us</a></li>
+					<li class="nav-item"><a class="nav-link active" href=""><span
+							th:text="${session.user.name}"></span></a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<!-- END OF NAVBAR -->
+	<!-- 	start of sidebar -->
+
+	<div class="sidebar">
+		<span class="closeBtn" onclick="toggleSidebar()">&times;</span> <a
+			href="/admin/profile"
+			th:classappend="${#request.getServletPath() == '/admin/profile' ? 'myactive' : ''}"
+			class="item"><span>Profile</span></a> <a
+			href="/admin/pending-requests/0"
+			th:classappend="${#strings.startsWith(#request.getServletPath(),'/admin/pending-requests/')? 'myactive' : ''}"
+			class="item"><span>Pending Requests</span></a> <a
+			href="/admin/add-expense"
+			th:classappend="${#request.getServletPath() == '/admin/add-expense' ? 'myactive' : ''}"
+			class="item"><span>Add Expense</span></a> <a
+			href="/admin/add-contact-to-diary"
+			th:classappend="${#request.getServletPath() == '/admin/add-contact-to-diary' ? 'myactive' : ''}"
+			class="item"><span>Add contacts to diary</span></a> <a
+			href="/admin/notice-board"
+			th:classappend="${#request.getServletPath() == '/admin/notice-board' ? 'myactive' : ''}"
+			class="item"><span>Notice board</span></a> <a
+			href="/admin/generate-maintenace-bill"
+			th:classappend="${#request.getServletPath() == '/admin/generate-maintenance-bill' ? 'myactive' : ''}"
+			class="item"><span>Generate Maintenance bill</span></a> <a
+			href="/logout" class="item"><span>Logout</span></a>
+		<div class="divider"></div>
+
+	</div>
+	<!-- 	end of sidebar -->
+
+
+
+	<!-- 	content will be here -->
+	<div class="content mt-5">
+
+		<i class="fas fa-bars m-3 bar-btn" onclick="toggleSidebar()"></i>
+		<div th:replace="${content}"></div>
+	</div>
+
+
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/sweetalert2.1.2.js}"></script>
+	<script th:src="@{/js/jQuery-3.6.0.min.js}"></script>
+</body>
+</html>

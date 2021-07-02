@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}"
+			class="alert alert-dismissible" role="alert">
+			<p th:text="${session.message.content}"></p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card mt-2">
+						<h2 class="text-center">Add Expense</h2>
+						<form th:action="@{'add-expense'}" method="post"
+							th:object="${expense}">
+							<div class="form-group mt-5">
+								<div class="row">
+									<div class="input-group mb-3">
+										<div class="col-2">
+											<label class="input-group-text" for="title" id="title-label">Title</label>
+										</div>
+										<input type="text" class="form-control" placeholder="Title"
+											th:value="${expense.expenseName}"
+											th:classappend="${#fields.hasErrors('expenseName')?'is-invalid':''}"
+											aria-label="Title" aria-describedby="title-label"
+											name="expenseName">
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('expenseName')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="input-group mb-3">
+										<div class="col-2">
+											<label for="type" class="input-group-text">Expense
+												Type</label>
+										</div>
+										<select name="expenseType" class="form-select"
+											th:classappend="${#fields.hasErrors('expenseType')?'is-invalid':''}"
+											id="inputGroupSelect01">
+											<option value="0"
+												th:selected="${expense.expenseType=='Not Specified'}">Choose
+												Expense Type</option>
+											<option value="1"
+												th:selected="${expense.expenseType=='Bill'}">Bill</option>
+											<option value="2"
+												th:selected="${expense.expenseType=='Salary Payment'}">Salary
+												Payment</option>
+											<option value="3"
+												th:selected="${expense.expenseType=='New Purchase'}">New
+												Purchase</option>
+											<option value="4"
+												th:selected="${expense.expenseType=='Repairing'}">Repairing</option>
+											<option value="5"
+												th:selected="${expense.expenseType=='Other'}">Other</option>
+										</select>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('expenseType')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="input-group mb-3">
+										<div class="col-2">
+											<label class="input-group-text" for="amount"
+												id="amount-label">Amount</label>
+										</div>
+										<input type="number" class="form-control"
+											th:value="${expense.amount}"
+											th:classappend="${#fields.hasErrors('amount')?'is-invalid':''}"
+											placeholder="Enter Expense Amount" name="amount"
+											aria-label="Amount" aria-describedby="amount-label">
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('amount')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="input-group mb-3">
+										<div class="col-2">
+											<label class="input-group-text" for="description"
+												id="description-label">Description</label>
+										</div>
+										<input type="text" th:value="${expense.description}"
+											th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"
+											class="form-control" placeholder="Describe Expense"
+											name="description" aria-label="Description"
+											aria-describedby="description-label">
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('description')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+
+								<div class="container text-center" style="margin-top: 25px">
+
+									<button type="submit" class="btn btn-success text-white mx-1"
+										value="Here">Add to Expense List</button>
+									<button type="reset" class="btn btn-info text-white mx-1">Reset</button>
+
+								</div>
+
+
+
+
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>
