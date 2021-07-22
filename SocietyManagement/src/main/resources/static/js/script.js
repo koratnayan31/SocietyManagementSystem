@@ -272,9 +272,17 @@ const toggleSidebar = () => {
 	if ($('.sidebar').is(':visible')) {
 		$('.sidebar').css("display", "none");
 		$('.content').css("margin-left", "0%");
+		$('.sidebar').removeClass("mt-5");
+		$('.content').css("display","block");
+		
+		
 	} else {
 		$('.sidebar').css("display", "block");
 		$('.content').css("margin-left", "20%");
+		if (window.matchMedia('(max-width: 700px)').matches) {
+			$('.content').css("display","none");
+			$('.sidebar').addClass("mt-5");
+		}
 	}
 };
 
@@ -286,6 +294,64 @@ $('#forMonthYear').datepicker({
     format: "mm/yyyy",
     minViewMode: 1,
     endDate: 'today',
-    autoclose: true
+    autoclose:true
 });
 
+$('#forMonthYearBill').datepicker({
+    format: "yyyy/mm",
+    minViewMode: 1,
+    endDate: 'today',
+    autoclose:true
+});
+
+
+$('#dueDate').datepicker({
+	format:"dd/mm/yyyy",
+	startDate:'+1d',
+	orientation: "bottom",
+	autoclose:true,
+});
+
+function submitForMonthYear(){
+	var forMonthYear=document.getElementById("forMonthYearBill");
+	const actualDate=new Date(forMonthYear.value);
+	console.log(actualDate);
+	var form=document.getElementById("maintenanceBill");
+	form.setAttribute("action","generate-maintenance-bill-fetch");
+	form.submit();
+}
+
+function checkBillData(event)
+{
+	event.preventDefault();
+	var form=document.getElementById("maintenanceBill");
+	var error=false;
+	if(form.getAttribute("action")!="generate-maintenance-bill-fetch")
+	{
+		var dueDate=document.getElementById("dueDate").value;
+		if(dueDate==""||dueDate==null)
+		{
+			error=true;
+			document.getElementById("dueDateMsg").innerHTML="Choose Due Date";
+			return false;
+		}
+		var parts=dueDate.split("/");
+		var date=new Date(parseInt(parts[2],10),parseInt(parts[1]-1,10),parseInt(parts[0],10));
+		if(date.getTime()!=date.getTime()){
+			document.getElementById("dueDateMsg").innerHTML="Choose Due Date";
+			error=true;
+		}
+		parts=document.getElementById("forMonthYearBill").value.split("/");
+		console.log(parts);
+		date=new Date(parseInt(parts[0],10),parseInt(parts[1],10));
+		if(date.getTime()!=date.getTime())
+		{
+			error=true;
+			document.getElementById("forMonthYearBillMsg").innerHTML="Choose valid month/year";
+		}
+		if(!error)
+			form.submit();
+	}
+	
+	
+}

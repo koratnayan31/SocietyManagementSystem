@@ -1,5 +1,7 @@
 package com.nayan.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -10,15 +12,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nayan.entity.Counting;
+import com.nayan.entity.Expense;
 import com.nayan.entity.Form;
 import com.nayan.entity.House;
+import com.nayan.entity.MaintenanceBill;
 import com.nayan.entity.SocietyMember;
 import com.nayan.entity.User;
 import com.nayan.exception.AdharNumberAlreadyExist;
 import com.nayan.exception.EmailAlreadyExist;
 import com.nayan.helper.Utility;
 import com.nayan.repo.CountingRepo;
+import com.nayan.repo.ExpenseRepo;
 import com.nayan.repo.FormRepo;
+import com.nayan.repo.MaintenanceBillRepo;
 import com.nayan.repo.SocietyMemberRepo;
 import com.nayan.repo.UserRepo;
 
@@ -39,6 +45,12 @@ public class ServiceProvider {
 
 	@Autowired
 	private CountingRepo countingRepo;
+
+	@Autowired
+	private MaintenanceBillRepo billRepo;
+
+	@Autowired
+	private ExpenseRepo expenseRepo;
 
 	public boolean isAccepatableEmail(String email) {
 		boolean exist = societyMemberRepo.existsSocietyMemberByEmail(email);
@@ -152,7 +164,7 @@ public class ServiceProvider {
 			} catch (IllegalArgumentException ex) {
 				ex.printStackTrace();
 				return null;
-			}catch(Exception ex) {
+			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 
@@ -191,6 +203,91 @@ public class ServiceProvider {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+
+	
+	//it take parameter as start date of month and due date for bill
+	@Transactional(rollbackOn = Exception.class)
+	public boolean generateMaintenanceBill(Date date, Date dueDate) {
+		if (date == null)
+			return false;
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
+		Date endDate = cal.getTime();
+
+		float share=calculateBillAmount(date, endDate);
+
+		// update the record
+		MaintenanceBill bill = new MaintenanceBill();
+		bill.setBillAmount(share + "");
+		int month=cal.get(Calendar.MONTH) + 1;
+		String MM;
+		if(month<10)
+			MM="0"+month;
+		else
+			MM=""+month;
+		bill.setForMonthYear(cal.get(Calendar.YEAR) + "/" + MM);
+
+		cal.setTime(dueDate);
+		String dueDateForBill = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.YEAR);
+		bill.setDueDate(dueDateForBill);
+		System.out.println(dueDateForBill);
+
+		billRepo.save(bill);
+
+		return true;
+	}
+
+	
+	
+	//calculate bill amount between two date 
+	private float calculateBillAmount(Date startDate, Date endDate) {
+		List<Expense> expenses = expenseRepo.findAllByTimeStampBetween(startDate, endDate);
+
+		if (expenses == null)
+			return 0;
+
+		// calculate total expense
+		float total = 0;
+		for (Expense expense : expenses) {
+			total += expense.getAmount();
+		}
+
+		// fetching total number of houses
+		Counting count = null;
+		try {
+			count = countingRepo.getOne(Short.valueOf("1"));
+		} catch (EntityNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		int totalHouse = count.getTotalHouse();
+		
+		
+		total=total/totalHouse;
+
+		return total;
+	}
+
+	
+	
+	/*
+	 * @param it take start date of month as input to calculate share of individual house
+	 */
+	public String prefetchAmount(Date date) {
+		if (date == null)
+			return "0";
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DATE));
+		Date endDate = cal.getTime();
+
+		float total = this.calculateBillAmount(date, endDate);
+		return "" + total;
 	}
 
 }

@@ -11,6 +11,8 @@
 
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
 <link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.standalone.css}" />
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -74,7 +76,7 @@
 			href="/admin/notice-board"
 			th:classappend="${#request.getServletPath() == '/admin/notice-board' ? 'myactive' : ''}"
 			class="item"><span>Notice board</span></a> <a
-			href="/admin/generate-maintenace-bill"
+			href="/admin/generate-maintenance-bill"
 			th:classappend="${#request.getServletPath() == '/admin/generate-maintenance-bill' ? 'myactive' : ''}"
 			class="item"><span>Generate Maintenance bill</span></a> <a
 			href="/logout" class="item"><span>Logout</span></a>
@@ -93,10 +95,11 @@
 	</div>
 
 
-
+	<script th:src="@{/js/jQuery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/sweetalert2.1.2.js}"></script>
-	<script th:src="@{/js/jQuery-3.6.0.min.js}"></script>
+	
 </body>
 </html>

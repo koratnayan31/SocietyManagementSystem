@@ -36,7 +36,7 @@
 						<th scope="col">Expense Type</th>
 						<th scope="col">Date</th>
 						<th scope="col">Amount</th>
-						
+
 					</tr>
 				</thead>
 				<tbody>
@@ -46,18 +46,22 @@
 						<td th:text="${expense.expenseName}"></td>
 						<td th:text="${expense.expenseType}"></td>
 						<td th:text="${expense.timeStamp}"></td>
-						<td th:text="${expense.amount}" style="text-align: right;" class="pe-2"></td>
-						
+						<td th:text="${expense.amount}" style="text-align: right;"
+							class="pe-2"></td>
+
 					</tr>
 					<tr th:unless="${#lists.isEmpty(expenses)}">
-						<td colspan=4 style="text-align: right;" class="pe-3 fw-bolder">Total Amount</td>
-						<td th:text="${total}" style="text-align: right;" class="pe-2 fw-bolder"></td>
+						<td colspan=4 style="text-align: right;" class="pe-3 fw-bolder">Total
+							Amount</td>
+						<td th:text="${total}" style="text-align: right;"
+							class="pe-2 fw-bolder"></td>
 					</tr>
 					</th:block>
 				</tbody>
-				
+
 			</table>
-			<div class="text-center" th:if="${#lists.isEmpty(expenses)}">No data available for this month</div>
+			<div class="text-center" th:if="${#lists.isEmpty(expenses)}">No
+				data available for this month</div>
 		</div>
 	</section>
 

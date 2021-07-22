@@ -21,7 +21,6 @@ body {
 }
 
 .mytable {
-	
 	background-color: #3fb0ac;
 	background-color: #926AA6;
 }
@@ -98,7 +97,7 @@ body {
 	}
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:700px) {
 	.sidebar {
 		display: none;
 		width: 100% !important;
@@ -118,6 +117,9 @@ body {
 	height: 100%;
 	position: fixed;
 	padding-top: 45px;
+	max-height: 100vh;
+	overflow-y: auto;
+	margin-bottom: auto;
 }
 
 .sidebar a {

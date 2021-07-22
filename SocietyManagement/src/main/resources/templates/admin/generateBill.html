@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>title</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}"
+			class="alert alert-dismissible" role="alert">
+			<p th:text="${session.message.content}"></p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="cols-md-8">
+					<div class="my-card mt-2">
+						<h2 class="text-center">Generate Maintenance Bill</h2>
+						<form id="maintenanceBill" th:action="@{'generate-maintenance-bill-verified'}" method="post"
+							th:object=${bill} onsubmit="checkBillData(event)">
+							<div class="form-group mt-5">
+
+								<div class="row">
+									<div class="col-md-12 mt-1">
+										<label for="forMonthYearBill" class="form-label">Choose
+											Month/Year</label> <input type="text" class="form-control"
+											id="forMonthYearBill" name="forMonthYear"
+											onchange="submitForMonthYear()"
+											th:value="${bill.forMonthYear}" autocomplete="off"
+											th:classappend="${#fields.hasErrors('forMonthYear')?'is-invalid':''}">
+										<small><span id="forMonthYearBillMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('forMonthYear')}" th:text="${e}"></div>
+									</div>
+
+									<div class="col-md-12 mt-3">
+										<label for="billAmount" class="form-label">Bill Amount
+											For Individual House </label> <input disabled type="number"
+											class="form-control" id="billAmount" name="billAmount"
+											th:value="${bill.billAmount}"
+											th:classappend="${#fields.hasErrors('billAmount')?'is-invalid':''}">
+										<small><span id="billAmountMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('billAmount')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12 mt-3">
+										<label for="dueDate" class="form-label">Choose Due
+											date for Maintenance Bill Payment</label> <input type="text"
+											class="form-control" id="dueDate" name="dueDate" autocomplete="off"
+											th:classappend="${#fields.hasErrors('dueDate')?'is-invalid':''}"
+											th:value="${bill.dueDate}"> <small><span
+											id="dueDateMsg" style="color: red;"></span></small>
+										<div class="invalid-feedback"
+											th:each="e:${#fields.errors('dueDate')}" th:text="${e}"></div>
+									</div>
+								</div>
+
+
+								<div class="container text-center" style="margin-top: 25px">
+
+									<button type="submit" class="btn btn-success text-white mx-1">Generate</button>
+									<button type="reset" class="btn btn-info text-white mx-1">Reset</button>
+
+								</div>
+
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="cols-md-4"></div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>
