@@ -145,6 +145,9 @@ public class PendingRequestController {
 
 		provider.addUserAsSocietyMember(savedMember);
 		session.setAttribute("message", new Message("Request approved successfully", "alert-success"));
+		
+		
+		
 		mailer.setTo(savedMember.getEmail());
 		mailer.setSubject("Welcome to LDCE Society");
 		String message = "Dear " + savedMember.getName() + ",\nYou have signed up with us on " + form.getRecordDate()
