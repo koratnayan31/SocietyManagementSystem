@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nayan.entity.Expense;
+import com.nayan.entity.MaintenanceBill;
 import com.nayan.repo.ExpenseRepo;
+import com.nayan.repo.MaintenanceBillRepo;
 
 @Component
 public class Maintenance {
@@ -19,6 +21,8 @@ public class Maintenance {
 	private List<Expense> expenses;
 	@Autowired
 	private ExpenseRepo expenseRepo;
+	@Autowired
+	private MaintenanceBillRepo billRepo;
 
 	public String getForMonthYear() {
 		return forMonthYear;
@@ -71,6 +75,18 @@ public class Maintenance {
 		} else {
 			return null;
 		}
+	}
+	
+	public MaintenanceBill getBill() {
+		String year=this.getForMonthYear().split("/")[1];
+		String month=this.getForMonthYear().split("/")[0];
+		boolean exist=billRepo.existsMaintenanceBillByForMonthYear(year+"/"+month);
+		
+		if(!exist)
+			return null;
+		
+		MaintenanceBill bill=billRepo.findByForMonthYear(year+"/"+month);
+		return bill;
 	}
 
 }

@@ -60,9 +60,17 @@
 				</tbody>
 
 			</table>
-			<div class="text-center" th:if="${#lists.isEmpty(expenses)}">No
+			<div class="text-center" th:unless="${exist}">No
 				data available for this month</div>
 		</div>
+		<div th:if="${exist}">
+			<div class="text-center">
+				Maintenance Bill for <b><span th:text="${bill.forMonthYear}"></span></b> month is <b>Rs. <span
+					th:text="${bill.billAmount}"></span></b> and this bill is due on <b><span
+					th:text="${bill.dueDate}"></span></b>
+			</div>
+		</div>
+
 	</section>
 
 </body>

@@ -2,6 +2,7 @@ package com.nayan.entity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class MaintenanceBill {
 		return timeStamp;
 	}
 	public Date getDueDate() {
-		return dueDate;
+		return this.dueDate;
 	}
 	public void setMaintenanceBillId(int maintenanceBillId) {
 		this.maintenanceBillId = maintenanceBillId;

@@ -1,6 +1,7 @@
 package com.nayan.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nayan.entity.Expense;
+import com.nayan.entity.MaintenanceBill;
 import com.nayan.entity.Notice;
 import com.nayan.entity.SocietyMember;
 import com.nayan.helper.Maintenance;
@@ -94,11 +96,21 @@ public class SocietyMemberUtilityController {
 		String data=(today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.YEAR);
 		
 		maintenance.setForMonthYear(data);
-		List<Expense> expenses=maintenance.getExpenses();
-		double total=maintenance.getAmount();
-		
-		m.addAttribute("expenses", expenses);
-		m.addAttribute("total", total);
+		List<Expense> expenses=new ArrayList<>();
+		double total=0;
+		MaintenanceBill bill=maintenance.getBill();
+		if(bill!=null)
+		{
+			m.addAttribute("exist",true);
+			m.addAttribute("bill",bill);
+			expenses=maintenance.getExpenses();
+			total=maintenance.getAmount();
+			m.addAttribute("expenses", expenses);
+			m.addAttribute("total", total);
+		}else {
+			m.addAttribute("expenses", expenses);
+			m.addAttribute("exist",false);
+		}
 		
 		return "user/maintenance";
 	}
@@ -108,11 +120,21 @@ public class SocietyMemberUtilityController {
 		m.addAttribute("title","Maintenance");
 		
 		maintenance.setForMonthYear(data);
-		List<Expense> expenses=maintenance.getExpenses();
-		double total=maintenance.getAmount();
-		
-		m.addAttribute("expenses",expenses);
-		m.addAttribute("total",total);
+		List<Expense> expenses=new ArrayList<>();
+		double total=0;
+		MaintenanceBill bill=maintenance.getBill();
+		if(bill!=null)
+		{
+			m.addAttribute("exist",true);
+			m.addAttribute("bill",bill);
+			expenses=maintenance.getExpenses();
+			total=maintenance.getAmount();
+			m.addAttribute("expenses", expenses);
+			m.addAttribute("total", total);
+		}else {
+			m.addAttribute("expenses", expenses);
+			m.addAttribute("exist",false);
+		}
 		return "user/maintenance";
 	}
 	
