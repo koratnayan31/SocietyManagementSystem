@@ -6,28 +6,30 @@
 <title>title</title>
 </head>
 <body>
-	<section>
+	<section id="home">
 		<div th:if="${session.message}"
 			th:classappend="${session.message.type}"
 			class="alert alert-dismissible" role="alert">
 			<p th:text="${session.message.content}"></p>
 			<button type="button" class="btn-close" data-bs-dismiss="alert"
-				aria-label="Close">
-			</button>
+				aria-label="Close"></button>
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 		</div>
-		
+
 		<div class="banner d-flex justify-content-center align-items-center">
 			<div class="text-center">
 				<h2 class="font-weight-bold">Society Management System</h2>
 
 				<p>We are providing online management of society's basic
 					activity</p>
-				<button class="btn bg-primary btn-lg text-white">Get
-					Started</button>
+				<a href="/login"><button
+						class="btn bg-primary btn-lg text-white">Get Started</button></a>
 			</div>
 		</div>
+	<script>
+		document.getElementById("base").onload=()=>displayTestUser();
+		
+	</script>
 	</section>
-
 </body>
 </html>

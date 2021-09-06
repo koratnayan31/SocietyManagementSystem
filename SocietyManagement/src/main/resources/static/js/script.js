@@ -2,12 +2,12 @@ function adjustTextbox() {
 	var isOwner = document.getElementById("isOwnerYes");
 	var ownerEmailGroup = document.getElementById("ownerEmailGroup");
 	ownerEmailGroup.hidden = isOwner.checked ? true : false;
-	if(ownerEmailGroup.hidden){
-		document.getElementById("ownerEmail").value=document.getElementById("email").value;
+	if (ownerEmailGroup.hidden) {
+		document.getElementById("ownerEmail").value = document.getElementById("email").value;
 	}
 }
 
- 
+
 
 function validateEmailPattern(email) {
 	const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -273,14 +273,14 @@ const toggleSidebar = () => {
 		$('.sidebar').css("display", "none");
 		$('.content').css("margin-left", "0%");
 		$('.sidebar').removeClass("mt-5");
-		$('.content').css("display","block");
-		
-		
+		$('.content').css("display", "block");
+
+
 	} else {
 		$('.sidebar').css("display", "block");
 		$('.content').css("margin-left", "20%");
 		if (window.matchMedia('(max-width: 700px)').matches) {
-			$('.content').css("display","none");
+			$('.content').css("display", "none");
 			$('.sidebar').addClass("mt-5");
 		}
 	}
@@ -291,67 +291,74 @@ const toggleSidebar = () => {
 //calendar
 
 $('#forMonthYear').datepicker({
-    format: "mm/yyyy",
-    minViewMode: 1,
-    endDate: 'today',
-    autoclose:true
+	format: "mm/yyyy",
+	minViewMode: 1,
+	endDate: 'today',
+	autoclose: true
 });
 
 $('#forMonthYearBill').datepicker({
-    format: "yyyy/mm",
-    minViewMode: 1,
-    endDate: 'today',
-    autoclose:true
+	format: "yyyy/mm",
+	minViewMode: 1,
+	endDate: 'today',
+	autoclose: true
 });
 
 
 $('#dueDate').datepicker({
-	format:"dd/mm/yyyy",
-	startDate:'+1d',
+	format: "dd/mm/yyyy",
+	startDate: '+1d',
 	orientation: "bottom",
-	autoclose:true,
+	autoclose: true,
 });
 
-function submitForMonthYear(){
-	var forMonthYear=document.getElementById("forMonthYearBill");
-	const actualDate=new Date(forMonthYear.value);
+function submitForMonthYear() {
+	var forMonthYear = document.getElementById("forMonthYearBill");
+	const actualDate = new Date(forMonthYear.value);
 	console.log(actualDate);
-	var form=document.getElementById("maintenanceBill");
-	form.setAttribute("action","generate-maintenance-bill-fetch");
+	var form = document.getElementById("maintenanceBill");
+	form.setAttribute("action", "generate-maintenance-bill-fetch");
 	form.submit();
 }
 
-function checkBillData(event)
-{
+function checkBillData(event) {
 	event.preventDefault();
-	var form=document.getElementById("maintenanceBill");
-	var error=false;
-	if(form.getAttribute("action")!="generate-maintenance-bill-fetch")
-	{
-		var dueDate=document.getElementById("dueDate").value;
-		if(dueDate==""||dueDate==null)
-		{
-			error=true;
-			document.getElementById("dueDateMsg").innerHTML="Choose Due Date";
+	var form = document.getElementById("maintenanceBill");
+	var error = false;
+	if (form.getAttribute("action") != "generate-maintenance-bill-fetch"){
+		var dueDate = document.getElementById("dueDate").value;
+		if (dueDate == "" || dueDate == null) {
+			error = true;
+			document.getElementById("dueDateMsg").innerHTML = "Choose Due Date";
 			return false;
 		}
-		var parts=dueDate.split("/");
-		var date=new Date(parseInt(parts[2],10),parseInt(parts[1]-1,10),parseInt(parts[0],10));
-		if(date.getTime()!=date.getTime()){
-			document.getElementById("dueDateMsg").innerHTML="Choose Due Date";
-			error=true;
+		var parts = dueDate.split("/");
+		var date = new Date(parseInt(parts[2], 10), parseInt(parts[1] - 1, 10), parseInt(parts[0], 10));
+		if (date.getTime() != date.getTime()) {
+			document.getElementById("dueDateMsg").innerHTML = "Choose Due Date";
+			error = true;
 		}
-		parts=document.getElementById("forMonthYearBill").value.split("/");
+		parts = document.getElementById("forMonthYearBill").value.split("/");
 		console.log(parts);
-		date=new Date(parseInt(parts[0],10),parseInt(parts[1],10));
-		if(date.getTime()!=date.getTime())
-		{
-			error=true;
-			document.getElementById("forMonthYearBillMsg").innerHTML="Choose valid month/year";
+		date = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10));
+		if (date.getTime() != date.getTime()) {
+			error = true;
+			document.getElementById("forMonthYearBillMsg").innerHTML = "Choose valid month/year";
 		}
-		if(!error)
+		if (!error)
 			form.submit();
 	}
-	
-	
 }
+
+//test user display
+
+function displayTestUser() {
+	var msg = document.createElement('div');
+	msg.innerHTML = 'Admin: <b>admin@test.com</b><br>Society Member: <b>member@test.com</b> <br>Password for both: <b>1234</b>';
+	swal({
+		title: "Test User Details",
+		content:msg,
+		icon: "success",
+	});
+}
+
