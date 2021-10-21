@@ -51,7 +51,6 @@ public class FileUploader {
 		}
 		
 		try {
-			
 			String Path = new ClassPathResource("static/" + folder).getFile().getAbsolutePath();
 			System.out.println(Path);
 			Files.copy(file.getInputStream(), Paths.get(Path + File.separator +fileName),
@@ -63,6 +62,5 @@ public class FileUploader {
 			e.printStackTrace();
 			return "";
 		}
-
 	}
 }

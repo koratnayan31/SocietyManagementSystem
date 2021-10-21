@@ -222,5 +222,4 @@ public class PendingRequestController {
 
 		return "redirect:/admin/pending-requests";
 	}
-
 }
